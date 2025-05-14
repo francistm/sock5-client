@@ -12,6 +12,10 @@
 #define SOCK5_CLIENT_ERR_AUTH_FAIL        -4
 #define SOCK5_CLIENT_ERR_CONNECT_DST_FAIL -5
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct {
     SOCKET fd;
     int    err_code;
@@ -25,3 +29,7 @@ typedef struct {
 SOCK5Client *new_sock5_client(const char *host, int port);
 void sock5_client_free(SOCK5Client *client);
 int sock5_client_connect(SOCK5Client *client, const char *dst_host, int dst_port, SOCK5Auth *auth);
+
+#ifdef __cplusplus
+}
+#endif
