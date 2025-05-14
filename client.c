@@ -3,7 +3,7 @@
 #include <string.h>
 #include <winsock2.h>
 
-#include "include/sock5_client/client.h"
+#include "include/sock5/client.h"
 
 const char AUTH_METHOD_NONE              = 0x00;
 const char AUTH_METHOD_USERNAME_PASSWORD = 0x02;
