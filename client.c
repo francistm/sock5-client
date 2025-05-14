@@ -80,15 +80,10 @@ int sock5_client_connect(SOCK5Client *client, const char *dst_host, int dst_port
                 char data_send[4] = { 0 };
                 char data_recv[2] = { 0 };
 
-                data_send[0] = 0x05;             // version
-                data_send[1] = 1;                // auth method size
-                data_send[2] = AUTH_METHOD_NONE; // default method
-
-
-                if (auth != NULL && auth->username != NULL && auth->password != NULL) {
-                    data_send[1] = 2;
-                    data_send[3] = AUTH_METHOD_USERNAME_PASSWORD;
-                }
+                data_send[0] = 0x05;                          // version
+                data_send[1] = 2;                             // auth method size
+                data_send[2] = AUTH_METHOD_NONE;              // method 1
+                data_send[3] = AUTH_METHOD_USERNAME_PASSWORD; // method 2
 
                 if (send(client->fd, data_send, 4, 0) < 0) {
                     client->err_code = SOCK5_CLIENT_ERR_GREETING_FAIL;
@@ -158,9 +153,9 @@ int sock5_client_connect(SOCK5Client *client, const char *dst_host, int dst_port
             case 2: // connect
             {
                 size_t next_read_sz = 0;
-                char   host_len     = strlen(dst_host);
-                char   *data_send   = (char *)malloc(7 + host_len);
-                char   *data_recv   = (char *)malloc(5); // realloc later
+                char host_len       = strlen(dst_host);
+                char *data_send     = (char *)malloc(7 + host_len);
+                char *data_recv     = (char *)malloc(5);           // realloc later
 
                 data_send[0]            = 0x05;                    // version
                 data_send[1]            = COMMAND_CONNECT;         // command
