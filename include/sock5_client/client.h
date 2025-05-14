@@ -18,9 +18,8 @@ typedef struct {
 } SOCK5Client;
 
 typedef struct {
-    unsigned char auth;
-    char          *username;
-    char          *password;
+    char *username;
+    char *password;
 } SOCK5Auth;
 
 SOCK5Client *new_sock5_client(const char *host, int port);
