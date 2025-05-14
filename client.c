@@ -168,7 +168,7 @@ int sock5_client_connect(SOCK5Client *client, const char *dst_host, int dst_port
                 data_send[3]            = ADDRESS_TYPE_DOMAIN;     // address type
                 data_send[4]            = host_len;                // address length
                 data_send[5 + host_len] = (dst_port >> 8) & 0xFF;  // port high byte
-                data_send[6 + host_len] = (dst_port >> 0) & 0xFF;  // port low byte
+                data_send[6 + host_len] = (dst_port)      & 0xFF;  // port low byte
                 memcpy(data_send + 5, dst_host, host_len);         // address
 
                 if (send(client->fd, data_send, 7 + host_len, 0) < 0) {
